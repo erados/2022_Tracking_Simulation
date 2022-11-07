@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Tracking by Distance Simulation</title>
-</head>
-<body>
-<canvas id="canvas" style="margin: auto; display: block; border: 1px red solid"></canvas>
-</body>
-<script type="text/javascript" src="Point.js"></script>
-<script type="text/javascript" src="Matrix.js"></script>
-<script type="text/javascript" src="Quaternion.js"></script>
-<script type="text/javascript" src="js.js"></script>
-<script type="text/javascript" src="js2.js"></script>
-<script type="text/javascript" src="js3.js"></script>
-<script type="text/javascript">
-	init();
-	animate();
-</script>
+  <head>
+    <title>Tracking Simulation</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+  </body>
+  <script type="text/javascript" src="Point.js"></script>
+  <script type="text/javascript" src="Matrix.js"></script>
+  <script type="text/javascript" src="Quaternion.js"></script>
+  <script type="text/javascript" src="js.js"></script>
+  <script type="text/javascript" src="js2.js"></script>
+  <script type="text/javascript" src="js3.js"></script>
+  <script type="text/javascript">
+    init();
+    animate();
+  </script>
+  <style>
+    #canvas {
+      margin: auto;
+      display: block;
+      border: 1px red solid;
+    }
+  </style>
 </html>
