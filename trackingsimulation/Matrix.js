@@ -1,41 +1,41 @@
-function multiply_matrix(a, b) {
-  var ar = a.length;
-  var ac = a[0].length; // == br
-  var br = b.length;
-  var bc = b[0].length;
+function multiplyMatrix(a, b) {
+  const ar = a.length;
+  const ac = a[0].length; // == br
+  const br = b.length;
+  const bc = b[0].length;
 
   if (ac == br) {
-    var result_matrix = [];
-    for (var row = 0; row < ar; row++) {
-      var row_matrix = [];
-      for (var i = 0; i < bc; i++) {
-        row_matrix[i] = 0;
-        for (var col = 0; col < ac; col++) {
-          row_matrix[i] += a[row][col] * b[col][i];
+    const resultMatrix = [];
+    for (let row = 0; row < ar; row++) {
+      const rowMatrix = [];
+      for (let i = 0; i < bc; i++) {
+        rowMatrix[i] = 0;
+        for (let col = 0; col < ac; col++) {
+          rowMatrix[i] += a[row][col] * b[col][i];
         }
       }
-      result_matrix[row] = row_matrix;
+      resultMatrix[row] = rowMatrix;
     }
-    return result_matrix;
+    return resultMatrix;
   } else {
     console.log("Wrong matrix multiplying");
     return 0;
   }
 }
-function multiply_matrix_point(a, b) {
-  var ar = a.length;
-  var ac = a[0].length; // == br
-  var br = b.length;
+function multiplyMatrixPoint(a, b) {
+  const ar = a.length;
+  const ac = a[0].length; // == br
+  const br = b.length;
 
   if (ac == br) {
-    var row_matrix = [];
-    for (var row = 0; row < ar; row++) {
-      row_matrix[row] = 0;
-      for (var col = 0; col < ac; col++) {
-        row_matrix[row] += a[row][col] * b[col];
+    const rowMatrix = [];
+    for (let row = 0; row < ar; row++) {
+      rowMatrix[row] = 0;
+      for (let col = 0; col < ac; col++) {
+        rowMatrix[row] += a[row][col] * b[col];
       }
     }
-    return row_matrix;
+    return rowMatrix;
   } else {
     console.log("Wrong matrix multiplying");
     return 0;

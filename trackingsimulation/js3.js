@@ -1,10 +1,10 @@
-var old_pos = new Point(0, 0, 0);
-var new_pos = new Point(0, 0, 0);
+var oldPos = new Point(0, 0, 0);
+var newPos = new Point(0, 0, 0);
 var isdraging = false;
-var axis_vector = new Point(0, 0, 0);
+var axisVector = new Point(0, 0, 0);
 var theta = Math.PI / 180;
-var cos_theta = Math.cos(theta);
-var sin_theta = Math.sin(theta);
+var cosTheta = Math.cos(theta);
+var sinTheta = Math.sin(theta);
 canvas.addEventListener("mousedown", mousedown);
 canvas.addEventListener("mousemove", mousemove);
 canvas.addEventListener("mouseup", mouseup);
@@ -14,7 +14,7 @@ function mousedown(e) {
   x = e.layerX - width / 2;
   y = e.layerY - height / 2;
   z = Math.sqrt((width * width) / 4 - x * x - y * y);
-  old_pos.set_pos(x, y, z);
+  oldPos.setPos(x, y, z);
 }
 
 function mousemove(e) {
@@ -22,19 +22,19 @@ function mousemove(e) {
     x = e.layerX - width / 2;
     y = e.layerY - height / 2;
     z = Math.sqrt((width * width) / 4 - x * x - y * y);
-    new_pos.set_pos(x, y, z);
+    newPos.setPos(x, y, z);
 
     //rotation part here
-    var cp = old_pos.cross_product(new_pos);
+    var cp = oldPos.crossProduct(newPos);
     if (cp.x != 0) {
-      axis_vector = cp.nomalize();
-      rotation_quaternion = new Quaternion(
-        cos_theta,
-        axis_vector.multiply(sin_theta)
+      axisVector = cp.nomalize();
+      rotationQuaternion = new Quaternion(
+        cosTheta,
+        axisVector.multiply(sinTheta)
       );
-      var temp = rotation_quaternion.calculate_rotation_matrix();
-      matrix = multiply_matrix(temp, matrix);
-      old_pos.set_pos(x, y, z);
+      var temp = rotationQuaternion.calculateRotationMatrix();
+      matrix = multiplyMatrix(temp, matrix);
+      oldPos.setPos(x, y, z);
     }
   }
 }

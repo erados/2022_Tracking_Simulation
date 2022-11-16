@@ -1,81 +1,104 @@
-var n = 30; // 4 or more
-var fixed = 4;
-var dist_square = [];
-var points = [];
-var real_points = [];
-var gradiants = [];
-var initial_eta = 0.01;
-var eta = initial_eta;
-var eta_limit = initial_eta * 0.8;
-var times = 500;
-var error;
+const n = 30; // 4 or more
+let nodeLimit = 30;
+const fixed = 4;
+let distSquare = [];
+const points = [];
+let realPoints = [];
+const gradiants = [];
+const initialEta = 0.01;
+let eta = initialEta;
+const etaLimit = initialEta * 0.8;
+const etaGamma = 0.98;
+const times = 2500;
+let error;
+const errorLimit = 0.0000000001;
+let count = 0;
+const countGoal = 1000;
+let startTime = new Date().getTime();
+const nodeToConnect = {};
+let failureCount = 0;
+const failureLimit = 5;
 
-function randomly_allocate_real_pos() {
-  for (var i = 0; i < n; i++) {
-    real_points[i] = new Point();
-  }
-}
-
-function initiate_dist() {
-  for (var i = 0; i < n; i++) {
-    var temp = [];
-    for (var j = 0; j < n; j++) {
-      temp.push(0);
+function selectNodeToConnect() {
+  for (let i = 0; i < n; i++) {
+    nodeToConnect[i] = Array.from({ length: fixed }, (v, i) => i);
+    while (nodeToConnect[i].length != nodeLimit) {
+      const node = Math.floor(Math.random() * n);
+      if (!nodeToConnect[i].includes(node)) nodeToConnect[i].push(node);
     }
-    dist_square.push(temp);
   }
 }
 
-function initiate_pos() {
-  for (var i = 0; i < fixed; i++) {
-    points[i] = new Point(real_points[i].x, real_points[i].y, real_points[i].z);
+function randomlyAllocateRealPos() {
+  realPoints = Array.from({ length: n }, () => new Point());
+}
+
+function initiateDist() {
+  distSquare = Array.from({ length: n }, () => Array(n).fill(0));
+}
+
+function initiatePos() {
+  for (let i = 0; i < fixed; i++) {
+    points[i] = new Point(realPoints[i].x, realPoints[i].y, realPoints[i].z);
   }
-  for (var i = fixed; i < n; i++) {
+  for (let i = fixed; i < n; i++) {
     points[i] = new Point();
   }
 }
 
-function calculate_dist_square() {
-  for (var i = 0; i < n; i++) {
-    for (var j = i + 1; j < n; j++) {
+function calculateDistSquare() {
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
       if (i != j) {
-        dist_square[i][j] = real_points[i].calculate_distance_square(
-          real_points[j]
-        );
-        dist_square[j][i] = dist_square[i][j];
+        distSquare[i][j] = realPoints[i].calculateDistanceSquare(realPoints[j]);
+        distSquare[j][i] = distSquare[i][j];
       }
     }
   }
 }
 
-function calculate_gradiant() {
-  for (var i = fixed; i < n; i++) {
-    var temp = new Point(0, 0, 0);
-    for (var j = 0; j < n; j++) {
+function calculateGradiant() {
+  for (let i = fixed; i < n; i++) {
+    const temp = new Point(0, 0, 0);
+    nodeToConnect[i].forEach((j) => {
       if (i != j) {
-        var common_term =
-          4 *
-          (points[i].calculate_distance_square(points[j]) - dist_square[i][j]);
-        temp.add(points[i].calculate_sub(points[j]).multiply(common_term));
+        const commonTerm =
+          4 * (points[i].calculateDistanceSquare(points[j]) - distSquare[i][j]);
+        temp.add(points[i].calculateSub(points[j]).multiply(commonTerm));
       }
-    }
+    });
     gradiants[i] = temp;
   }
 }
 
-function update_pos() {
-  calculate_gradiant();
-  for (var i = fixed; i < n; i++) {
+// function calculateGradiant() {
+//   for (let i = fixed; i < n; i++) {
+//     const temp = new Point(0, 0, 0);
+//     for (let j = 0; j < n; j++) {
+//       if (i != j) {
+//         const term = Math.sqrt(
+//           distSquare[i][j] / points[i].calculateDistanceSquare(points[j])
+//         );
+//         temp.add(points[i].calculateSub(points[j])).multiply(2 * (1 - term));
+//       }
+//     }
+//     gradiants[i] = temp;
+//   }
+// }
+
+function updatePos() {
+  calculateGradiant();
+  for (let i = fixed; i < n; i++) {
     points[i].add(gradiants[i].multiply(-eta));
   }
 }
 
-function calculate_error() {
+function calculateError() {
   error = 0;
-  for (var i = 0; i < n; i++) {
-    for (var j = i + 1; j < n; j++) {
-      var temp =
-        points[i].calculate_distance_square(points[j]) - dist_square[i][j];
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      let temp =
+        points[i].calculateDistanceSquare(points[j]) - distSquare[i][j];
       error += temp * temp;
     }
   }
@@ -83,8 +106,9 @@ function calculate_error() {
 }
 
 function init() {
-  randomly_allocate_real_pos();
-  initiate_dist();
-  initiate_pos();
-  calculate_dist_square();
+  selectNodeToConnect();
+  randomlyAllocateRealPos();
+  initiateDist();
+  initiatePos();
+  calculateDistSquare();
 }
