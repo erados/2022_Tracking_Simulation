@@ -1,0 +1,5 @@
+\bold{x}_{n+1,g}=\bold{x}_{n,g}-\gamma_{n} \nabla F(\bold{x}_{n,g}), n > 0
+
+F(\bold{x}_{n,g})=\sum_{i\ne n} {\left [ \left \{(x_{n,g}-x_{i,g})^2+(y_{n,g}-y_{i,g})^2+(z_{n,g} -z_{i,g})^2 \right \}-\left \{(x_{n,a}-x_{i,a})^2+ (y_{n,a}-y_{i,a})^2+(z_{n,a}-z_{i,a})^2\right \} \right ]^2} \\
+
+\nabla F(\bold{x}_{n,g}) = 4 * \sum_{i\ne n} { \left [ \left ( \bold{x}_{n,g}-\bold{x}_{i,g} \right ) \left ( \left \{ (x_{n,g}-x_{i,g})^2+(y_{n,g}-y_{i,g})^2+(z_{n,g}-z_{i,g})^2 \right \} -  \left \{(x_{n,a}-x_{i,a})^2+ (y_{n,a}-y_{i,a})^2+(z_{n,a}-z_{i,a})^2\right \}\right ) \right ]}
