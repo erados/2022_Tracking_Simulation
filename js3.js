@@ -1,10 +1,10 @@
-var oldPos = new Point(0, 0, 0);
-var newPos = new Point(0, 0, 0);
-var isdraging = false;
-var axisVector = new Point(0, 0, 0);
-var theta = Math.PI / 180;
-var cosTheta = Math.cos(theta);
-var sinTheta = Math.sin(theta);
+let oldPos = new Point(0, 0, 0);
+let newPos = new Point(0, 0, 0);
+let isdraging = false;
+let axisVector = new Point(0, 0, 0);
+const theta = Math.PI / 180;
+const cosTheta = Math.cos(theta);
+const sinTheta = Math.sin(theta);
 canvas.addEventListener("mousedown", mousedown);
 canvas.addEventListener("mousemove", mousemove);
 canvas.addEventListener("mouseup", mouseup);
@@ -25,14 +25,14 @@ function mousemove(e) {
     newPos.setPos(x, y, z);
 
     //rotation part here
-    var cp = oldPos.crossProduct(newPos);
+    let cp = oldPos.crossProduct(newPos);
     if (cp.x != 0) {
       axisVector = cp.nomalize();
       rotationQuaternion = new Quaternion(
         cosTheta,
         axisVector.multiply(sinTheta)
       );
-      var temp = rotationQuaternion.calculateRotationMatrix();
+      let temp = rotationQuaternion.calculateRotationMatrix();
       matrix = multiplyMatrix(temp, matrix);
       oldPos.setPos(x, y, z);
     }
