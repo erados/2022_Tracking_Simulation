@@ -1,5 +1,5 @@
-const n = 30; // 4 or more
-let nodeLimit = 30;
+const n = 40; // 4 or more
+let nodeLimit = 10;
 const fixed = 4;
 let distSquare = [];
 const points = [];
