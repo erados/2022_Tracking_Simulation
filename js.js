@@ -1,4 +1,4 @@
-const n = 40; // 4 or more
+const n = 20; // 4 or more
 let nodeLimit = 10;
 const fixed = 4;
 let distSquare = [];
