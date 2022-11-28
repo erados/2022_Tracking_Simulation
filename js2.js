@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const width = window.innerWidth / 1.2;
-const height = window.innerHeight / 1.2;
+const width = window.innerWidth / 1.05;
+const height = window.innerHeight / 1.05;
 canvas.width = width;
 canvas.height = height;
 const unit = (height / size) * 0.9;
