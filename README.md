@@ -4,4 +4,4 @@
 
 <p align="center"><img src="etc/simulation.gif" width="500px"></p>
 
-**Tracking simulation** is a simulation of an algorithm that tracks all the positions of a device, given all the distance information between each device.
+**Tracking simulation** is a simulation of an algorithm that tracks all the positions of devices, given all the distance information between each device.
